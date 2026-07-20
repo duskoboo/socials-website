@@ -1,0 +1,118 @@
+@font-face {
+  font-family: 'Geist';
+  src: url('../fonts/Geist-VariableFont_wght.ttf') format('truetype');
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+}
+
+body {
+    background-color: #0D0D10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    width: fit-content;
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2.5vh;
+}
+
+img {
+    height: 20vh;
+    width: 20vh;
+    border-radius: 50%;
+    user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+h1 {
+    font-family: "Geist";
+    color: #F3F3F5;
+    font-weight: 600;
+    margin-bottom: 0.5vh;
+    font-size: 3.5vh;
+    margin-top: 1.5vh;
+}
+
+.hero div {
+    font-family: "Geist";
+    color: #7E7E8C;
+    font-weight: 400;
+    font-size: 1.7vh;
+}
+
+.hero a {
+    font-weight: "Geist";
+    color: #FF7EB6;
+    font-weight: 400;
+    text-decoration: none;
+    transition: color 150ms ease;
+}
+
+.hero a:hover {
+    color: #FF98C7;
+    text-decoration: underline;
+}
+
+.desc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.desc a {
+    font-family: "Geist";
+    color: #F3F3F5;
+    font-weight: 500;
+    font-size: 1.8vh;
+    background-color: #17171C;
+    border: 1px solid #31313B;
+    border-radius: 10px;
+    box-shadow:
+	0 0 0 1px rgba(255,255,255,.02),
+	0 12px 25px rgba(0,0,0,.35);
+    display: flex;
+    align-items: center;
+    gap: 1vh;
+    text-decoration: none;
+    min-width: 60vh;
+    justify-content: center;
+    padding-top: 0.7vh;
+    padding-bottom: 0.7vh;
+    transition: color 150ms ease;
+    margin-bottom: 1.3vh;
+}
+
+.desc a:hover {
+    border: 1px solid #FF7EB6;
+}
+
+.desc img {
+    height: 2vh;
+    width: 2vh;
+    border-radius: 0;
+    object-fit: contain;
+}
+
+@media (max-width: 600px) {
+    .content {
+	margin-left: 2vh;
+	margin-right: 2vh;
+    }
+}
