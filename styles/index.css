@@ -91,7 +91,8 @@ h1 {
     align-items: center;
     gap: 1vh;
     text-decoration: none;
-    min-width: 60vh;
+    width: 60vh;
+    max-width: calc(100vw - 2vh);
     justify-content: center;
     padding-top: 0.7vh;
     padding-bottom: 0.7vh;
@@ -108,11 +109,4 @@ h1 {
     width: 2vh;
     border-radius: 0;
     object-fit: contain;
-}
-
-@media (max-width: 600px) {
-    .content {
-	margin-left: 2vh;
-	margin-right: 2vh;
-    }
 }
