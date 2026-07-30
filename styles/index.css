@@ -6,7 +6,7 @@
 html, body {
     margin: 0;
     padding: 0;
-    width: 100%;
+    width: 100vw;
     min-height: 100vh;
 }
 
@@ -28,12 +28,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 2.5vh;
+    margin-bottom: 1.6rem;
 }
 
 img {
-    height: 20vh;
-    width: 20vh;
+    height: 12.3rem;
+    width: 12.3rem;
     border-radius: 50%;
     user-select: none;
     -webkit-user-select: none;
@@ -45,16 +45,16 @@ h1 {
     font-family: "Geist";
     color: #F3F3F5;
     font-weight: 600;
-    margin-bottom: 0.5vh;
-    font-size: 3.5vh;
-    margin-top: 1.5vh;
+    margin-bottom: 0.3rem;
+    font-size: 2.15rem;
+    margin-top: 0.9rem;
 }
 
 .hero div {
     font-family: "Geist";
     color: #7E7E8C;
     font-weight: 400;
-    font-size: 1.7vh;
+    font-size: 1.05rem;
 }
 
 .hero a {
@@ -80,7 +80,7 @@ h1 {
     font-family: "Geist";
     color: #F3F3F5;
     font-weight: 500;
-    font-size: 1.8vh;
+    font-size: 1.1rem;
     background-color: #17171C;
     border: 1px solid #31313B;
     border-radius: 10px;
@@ -89,15 +89,15 @@ h1 {
 	0 12px 25px rgba(0,0,0,.35);
     display: flex;
     align-items: center;
-    gap: 1vh;
+    gap: 0.6rem;
     text-decoration: none;
-    width: 60vh;
-    max-width: calc(100vw - 2vh);
+    width: 37rem;
+    max-width: calc(100vw - 1rem);
     justify-content: center;
-    padding-top: 0.7vh;
-    padding-bottom: 0.7vh;
+    padding-top: 0.43rem;
+    padding-bottom: 0.43rem;
     transition: color 150ms ease;
-    margin-bottom: 1.3vh;
+    margin-bottom: 0.8rem;
 }
 
 .desc a:hover {
@@ -105,8 +105,8 @@ h1 {
 }
 
 .desc img {
-    height: 2vh;
-    width: 2vh;
+    height: 1.2rem;
+    width: 1.2rem;
     border-radius: 0;
     object-fit: contain;
 }

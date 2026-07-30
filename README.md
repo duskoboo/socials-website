@@ -1,7 +1,7 @@
 # Socials Website
 
 This is the source code of the website used in:
-[https://socials.szantoksz.xyz](https://socials.szantoksz.xyz)
+[https://socials.dusko.boo](https://socials.dusko.boo)
 
 # Why is it here?
 This project is on GitHub, due to it being easier for me to manage updates on my servers, and for anyone who likes my socials site, to look at the source code, and clone it/make something similar.

@@ -16,7 +16,7 @@ const matrixButtonText = document.getElementById("matrixText");
 matrixButton.addEventListener("click", (event) => {
     event.preventDefault();
 
-    navigator.clipboard.writeText("@szantokszyay:tuwunel.szantoksz.xyz");
+    navigator.clipboard.writeText("@duskoboo:tuwunel.dusko.boo");
 
     matrixButtonText.textContent = "Matrix ID Copied!";
 
