@@ -26,6 +26,7 @@ jobs:
             --exclude='.git*' \
             --exclude='LICENSE' \
             --exclude='README.md' \
+            --exclude='NOTICE.md' \
             ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/docker/personal-websites/www/socials-website/
       - name: Purge Cloudflare cache
         run: |
