@@ -1,0 +1,35 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@25fcd78aa32202988cb0209b14c32ea6fa0288b9
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Add Known Hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
+      - name: Sync With Server
+        run: |
+          rsync -avz --delete \
+            --exclude='.git*' \
+            --exclude='LICENSE' \
+            --exclude='README.md' \
+            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/docker/personal-websites/www/socials-website/
+      - name: Purge Cloudflare cache
+        run: |
+          curl -sS -X POST https://api.cloudflare.com/client/v4/zones/${{ secrets.ZONE_ID }}/purge_cache \
+              -H 'Content-Type: application/json' \
+              -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+              -d '{"hosts": ["socials.dusko.boo"]}'
