@@ -28,7 +28,7 @@ jobs:
             --exclude='README.md' \
             --exclude='NOTICE.md' \
             ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/docker/personal-websites/www/socials-website/
-      - name: Purge Cloudflare cache
+      - name: Purge Cloudflare Cache
         run: |
           curl -sS -X POST https://api.cloudflare.com/client/v4/zones/${{ secrets.ZONE_ID }}/purge_cache \
               -H 'Content-Type: application/json' \
