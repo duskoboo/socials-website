@@ -36,8 +36,6 @@ img {
     width: 12.3rem;
     border-radius: 50%;
     user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
     -webkit-user-drag: none;
 }
 
@@ -58,11 +56,8 @@ h1 {
 }
 
 .hero a {
-    font-weight: "Geist";
     color: #FF7EB6;
-    font-weight: 400;
     text-decoration: none;
-    transition: color 150ms ease;
 }
 
 .hero a:hover {
@@ -96,7 +91,6 @@ h1 {
     justify-content: center;
     padding-top: 0.43rem;
     padding-bottom: 0.43rem;
-    transition: color 150ms ease;
     margin-bottom: 0.8rem;
 }
 
