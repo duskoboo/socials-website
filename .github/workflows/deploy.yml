@@ -9,28 +9,73 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        servers:
+          - name: eu_primary
+            host: EU_PRIMARY_SSH_HOST
+            user: EU_PRIMARY_SSH_USER
+            private_key: EU_PRIMARY_SSH_PRIVATE_KEY
+            host_key: EU_PRIMARY_SSH_HOST_KEY
+            path: "~/personal-websites/socials-website/"
+
+          - name: eu_secondary
+            host: EU_SECONDARY_SSH_HOST
+            user: EU_SECONDARY_SSH_USER
+            private_key: EU_SECONDARY_SSH_PRIVATE_KEY
+            host_key: EU_SECONDARY_SSH_HOST_KEY
+            path: "~/personal-websites/socials-website/"
+
     steps:
       - name: Checkout
         uses: actions/checkout@f548e57e544e1ff5a4c46bf1e1b8685f8e4a348a
+
       - name: Setup SSH Agent
         uses: webfactory/ssh-agent@25fcd78aa32202988cb0209b14c32ea6fa0288b9
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets[matrix.servers.private_key] }}
+
       - name: Add Known Hosts
+        env:
+          SSH_HOST_KEY: ${{ secrets[matrix.servers.host_key] }}
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
-      - name: Sync With Server
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_HOST_KEY" >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Sync With Servers
+        env:
+          SSH_HOST: ${{ secrets[matrix.servers.host] }}
+          SSH_USER: ${{ secrets[matrix.servers.user] }}
+          DEPLOY_PATH: ${{ matrix.servers.path }}
         run: |
           rsync -avz --delete \
             --exclude='.git*' \
             --exclude='LICENSE' \
             --exclude='README.md' \
-            --exclude='NOTICE.md' \
-            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/docker/personal-websites/www/socials-website/
+            --exclude='ATTRIBUTIONS.md' \
+            -e "ssh -o StrictHostKeyChecking=yes" \
+            ./ "$SSH_USER@$SSH_HOST:$DEPLOY_PATH"
+
+  purge-cache:
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
       - name: Purge Cloudflare Cache
+        env:
+          ZONE_ID: ${{ secrets.ZONE_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
-          curl -sS -X POST https://api.cloudflare.com/client/v4/zones/${{ secrets.ZONE_ID }}/purge_cache \
-              -H 'Content-Type: application/json' \
-              -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
-              -d '{"hosts": ["socials.dusko.boo"]}'
+          response=$(curl --fail-with-body -sS \
+            -X POST \
+            "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/purge_cache" \
+            -H 'Content-Type: application/json' \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -d '{"hosts": ["socials.dusko.boo"]}')
+
+          echo "$response" | jq -e '.success == true' > /dev/null
